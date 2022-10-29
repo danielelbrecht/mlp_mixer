@@ -120,7 +120,7 @@ clf_dim: Number of units for the linear layers in the classifier module
 
 n_classes: Number of classes in dataset, 10 for MNIST
 
-#Results
+# Results
 In main.py train a MLPMixer model on the MNIST dataset, which achieves
 97% accuracy after the first training epoch, and converges
 around 99% tet accuracy. THe model achieves very competitive results on ImageNet,
