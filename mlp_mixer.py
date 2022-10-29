@@ -34,14 +34,14 @@ class MLP(nn.Module):
 
     def __init__(self, input_dim, mlp_dim):
         super().__init__()
-        self.mlp1 = nn.Linear(input_dim, mlp_dim)
+        self.fc1 = nn.Linear(input_dim, mlp_dim)  # First fully connected
         self.gelu = nn.GELU()
-        self.mlp2 = nn.Linear(mlp_dim, input_dim)
+        self.fc2 = nn.Linear(mlp_dim, input_dim)
 
     def __call__(self, x):
-        x = self.mlp1(x)
+        x = self.fc1(x)
         x = self.gelu(x)
-        x = self.mlp2(x)
+        x = self.fc2(x)
         return x
 
 
@@ -60,8 +60,8 @@ class MLPMixer(nn.Module):
         """
         super().__init__()
 
-        patch_dim = (img_shape[0] // patch_size) *  (img_shape[0] // patch_size)
-        self.patch_embedding = nn.Conv2d(3, embedding_dim, kernel_size=patch_size, stride=patch_size)
+        patch_dim = (img_shape[1] // patch_size) * (img_shape[2] // patch_size)
+        self.patch_embedding = nn.Conv2d(img_shape[0], embedding_dim, kernel_size=patch_size, stride=patch_size)
 
         self.mixer_layers = nn.Sequential()
         for i in range(n_layers):
